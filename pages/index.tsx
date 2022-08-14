@@ -3,13 +3,6 @@ import ThemeToggler from '../src/ThemeToggler';
 import Layout from '../components/Layout'
 
 const IndexPage = () => (
-    // <Layout title="Home | Next.js + TypeScript Example">
-    // <div>
-    //     <ThemeToggler/>
-    //     <p className="text-slate-800 dark:text-slate-300">
-    //         This is some text.
-    //     </p>
-    // </div>
         <div className="pt-6 mt-28">
             <div className="flex justify-center items-center flex-col ">
                 <ThemeToggler />
