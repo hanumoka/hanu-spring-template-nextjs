@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import ThemeToggler from '../src/ThemeToggler';
 
 type Props = {
   children?: ReactNode;
@@ -14,7 +15,8 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <header className="bg-gray-900">
+    {/*<div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-10 transition duration-300">*/}
+    <header className="bg-white dark:bg-gray-900">
       <div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex-1 md:flex md:items-center md:gap-12">
@@ -42,39 +44,60 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
 
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     About
                   </a>
                 </li>
 
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     Careers
                   </a>
                 </li>
 
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     History
                   </a>
                 </li>
 
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     Services
                   </a>
                 </li>
 
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     Projects
                   </a>
                 </li>
 
                 <li>
-                  <a className="text-white transition hover:text-white/75" href="/">
+                  <a
+                    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
+                    href="/"
+                  >
                     Blog
                   </a>
+                </li>
+                <li>
+                  <ThemeToggler />
                 </li>
               </ul>
             </nav>
@@ -106,11 +129,11 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M4 6h16M4 12h16M4 18h16"
                     />
                   </svg>
