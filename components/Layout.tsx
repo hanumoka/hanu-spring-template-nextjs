@@ -106,7 +106,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
               <div className="sm:gap-4 sm:flex">
                 <a
                   className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
-                  href="/"
+                  href="/account/login"
                 >
                   Login
                 </a>
@@ -114,7 +114,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
                 <div className="hidden sm:flex">
                   <a
                     className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
-                    href="/"
+                    href="/account/register"
                   >
                     Register
                   </a>
