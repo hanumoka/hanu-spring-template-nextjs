@@ -55,41 +55,41 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
                     </a>
                   </li>
 
-                  <li>
-                    <a
-                      className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
-                    >
-                      Careers
-                    </a>
-                  </li>
+                  {/*<li>*/}
+                  {/*  <a*/}
+                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
+                  {/*    href="/"*/}
+                  {/*  >*/}
+                  {/*    Careers*/}
+                  {/*  </a>*/}
+                  {/*</li>*/}
 
-                  <li>
-                    <a
-                      className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
-                    >
-                      History
-                    </a>
-                  </li>
+                  {/*<li>*/}
+                  {/*  <a*/}
+                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
+                  {/*    href="/"*/}
+                  {/*  >*/}
+                  {/*    History*/}
+                  {/*  </a>*/}
+                  {/*</li>*/}
 
-                  <li>
-                    <a
-                      className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
-                    >
-                      Services
-                    </a>
-                  </li>
+                  {/*<li>*/}
+                  {/*  <a*/}
+                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
+                  {/*    href="/"*/}
+                  {/*  >*/}
+                  {/*    Services*/}
+                  {/*  </a>*/}
+                  {/*</li>*/}
 
-                  <li>
-                    <a
-                      className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
-                    >
-                      Projects
-                    </a>
-                  </li>
+                  {/*<li>*/}
+                  {/*  <a*/}
+                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
+                  {/*    href="/"*/}
+                  {/*  >*/}
+                  {/*    Projects*/}
+                  {/*  </a>*/}
+                  {/*</li>*/}
 
                   <li>
                     <a
