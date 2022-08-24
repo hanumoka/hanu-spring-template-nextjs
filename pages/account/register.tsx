@@ -6,12 +6,9 @@ const Register = () => {
       <>
         <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
           <div className="max-w-lg mx-auto text-center">
-            <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+            <h1 className="text-2xl font-bold sm:text-3xl">회원가입</h1>
 
-            <p className="mt-4 text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error
-              neque ipsa culpa autem, at itaque nostrum!
-            </p>
+            <p className="mt-4 text-gray-500">회원가입을 진행하겠습니다.</p>
           </div>
 
           <form action="" className="max-w-md mx-auto mt-8 mb-0 space-y-4">
@@ -52,6 +49,7 @@ const Register = () => {
               </label>
               <div className="relative">
                 <input
+                  id="password"
                   type="password"
                   className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                   placeholder="Enter password"
@@ -82,11 +80,48 @@ const Register = () => {
               </div>
             </div>
 
+            <div>
+              <label htmlFor="confirmPassword" className="sr-only">
+                재확인 Password
+              </label>
+              <div className="relative">
+                <input
+                  id="confirmPassword"
+                  type="password"
+                  className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
+                  placeholder="Enter 재확인 password"
+                />
+
+                <span className="absolute inset-y-0 inline-flex items-center right-4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </div>
+
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-500">
-                No account?
-                <a className="underline" href="">
-                  Sign up
+                계정이있나요? &nbsp;
+                <a className="underline" href="/account/login">
+                  로그인
                 </a>
               </p>
 
@@ -94,7 +129,7 @@ const Register = () => {
                 type="submit"
                 className="inline-block px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
               >
-                Sign in
+                회원가입
               </button>
             </div>
           </form>

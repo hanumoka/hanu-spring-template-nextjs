@@ -1,16 +1,17 @@
 import React from 'react';
 
 const Login = () => {
+  const login = () => {
+    alert('로그인');
+  };
+
   return (
     <>
       <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto text-center">
-          <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
+          <h1 className="text-2xl font-bold sm:text-3xl">로그인</h1>
 
-          <p className="mt-4 text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error
-            neque ipsa culpa autem, at itaque nostrum!
-          </p>
+          <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
 
         <form action="" className="max-w-md mx-auto mt-8 mb-0 space-y-4">
@@ -83,17 +84,18 @@ const Login = () => {
 
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-500">
-              No account?
-              <a className="underline" href="">
-                Sign up
+              계정이없으세요?? &nbsp;
+              <a className="underline" href="/account/register">
+                회원가입
               </a>
             </p>
 
             <button
+              onClick={login}
               type="submit"
               className="inline-block px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
             >
-              Sign in
+              로그인
             </button>
           </div>
         </form>
