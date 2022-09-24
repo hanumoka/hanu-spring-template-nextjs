@@ -7,6 +7,8 @@ const handler = (_req: NextApiRequest, res: NextApiResponse) => {
       throw new Error('Cannot find user data');
     }
 
+    const test = '';
+
     res.status(200).json(sampleUserData);
   } catch (err: any) {
     res.status(500).json({ statusCode: 500, message: err.message });
