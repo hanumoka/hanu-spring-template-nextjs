@@ -13,9 +13,17 @@ type Props = {
 const Layout = ({ children, title = 'This is the default title' }: Props) => {
   const { theme, setTheme } = useTheme();
 
+  // const { data: session, status } = useSession();
+
   useEffect(() => {
     console.log('layout:' + theme);
   }, [theme]);
+
+  // useEffect(() =>{
+  //   console.log("layout session...");
+  //   console.log(JSON.stringify(session));
+  //   console.log("status:"+ status);
+  // });
 
   return (
     <div>

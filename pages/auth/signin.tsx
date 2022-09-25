@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { getCsrfToken, signIn } from "next-auth/react"
 
-export default function SignIn({csrfToken}) {
+export default function SignIn() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -9,11 +8,7 @@ export default function SignIn({csrfToken}) {
   const login = (e: React.FormEvent) => {
     // alert('로그인');
     e.preventDefault();
-    signIn("credentials", { username, password })
-      .then(res => {
-        console.log("signIn then...");
-        console.log(JSON.stringify(res));
-      });
+    console.log(username, password);
   };
 
   return (
@@ -125,7 +120,7 @@ export default function SignIn({csrfToken}) {
 export async function getServerSideProps(context) {
   return {
     props: {
-      csrfToken: await getCsrfToken(context),
+      // csrfToken: await getCsrfToken(context),
     },
   }
 }
