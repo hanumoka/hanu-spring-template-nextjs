@@ -1,8 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { getCsrfToken, signIn } from "next-auth/react"
 
-const Login = () => {
-  const login = () => {
-    alert('로그인');
+export default function SignIn({csrfToken}) {
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const login = (e: React.FormEvent) => {
+    // alert('로그인');
+    e.preventDefault();
+    signIn("credentials", { username, password })
+      .then(res => {
+        console.log("signIn then...");
+        console.log(JSON.stringify(res));
+      });
   };
 
   return (
@@ -14,7 +25,7 @@ const Login = () => {
           <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
 
-        <form action="" className="max-w-md mx-auto mt-8 mb-0 space-y-4">
+        <form onSubmit={login} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
               Email
@@ -25,6 +36,10 @@ const Login = () => {
                 type="email"
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder="Enter email"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
               />
 
               <span className="absolute inset-y-0 inline-flex items-center right-4">
@@ -55,6 +70,10 @@ const Login = () => {
                 type="password"
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder="Enter password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
 
               <span className="absolute inset-y-0 inline-flex items-center right-4">
@@ -91,7 +110,6 @@ const Login = () => {
             </p>
 
             <button
-              onClick={login}
               type="submit"
               className="inline-block px-5 py-3 ml-3 text-sm font-medium text-white bg-blue-500 rounded-lg"
             >
@@ -104,4 +122,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  }
+}

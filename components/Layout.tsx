@@ -109,7 +109,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
                 <div className="sm:gap-4 sm:flex">
                   <a
                     className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
-                    href="/auth/login"
+                    href="/auth/signin"
                   >
                     Login
                   </a>
