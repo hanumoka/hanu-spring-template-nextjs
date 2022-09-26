@@ -1,15 +1,70 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import axios from 'axios';
+
+const postLogin = () => {
+  axios({
+    url: '/api/test/auth/login',
+    method: 'post',
+    data: {
+      name: 'veneas',
+    },
+  })
+    .then(function a(response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      // csrfToken: await getCsrfToken(context),
+    },
+  };
+}
+
+interface Ilogin {
+  username: string;
+  password: string;
+}
 
 export default function SignIn() {
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const login = (e: React.FormEvent) => {
+  const submitLogin = (e: React.FormEvent) => {
     // alert('로그인');
     e.preventDefault();
-    console.log(username, password);
+    // console.log(username, password);
+    // postLogin();
+    postLogin.mutate({ username, password });
   };
+
+  const postLogin = useMutation(
+    (loginParam: Ilogin) => axios.post('http://localhost:8080/api/auth/login', loginParam),
+    {
+      onMutate: (variable) => {
+        console.log('onMutate', variable);
+        // variable : {loginId: 'xxx', password; 'xxx'}
+      },
+      onError: (error, variable, context) => {
+        // error
+      },
+      onSuccess: (data, variables, context) => {
+        console.log('success', data, variables, context);
+      },
+      onSettled: () => {
+        console.log('end');
+      },
+    }
+  ); // useMutate 정의
+
+  // const onSavePerson = () => {
+  //   savePerson.mutate(person); // 데이터 저장
+  // }
 
   return (
     <>
@@ -20,7 +75,7 @@ export default function SignIn() {
           <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
 
-        <form onSubmit={login} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
+        <form onSubmit={submitLogin} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
           <div>
             <label htmlFor="email" className="sr-only">
               Email
@@ -115,12 +170,4 @@ export default function SignIn() {
       </div>
     </>
   );
-};
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      // csrfToken: await getCsrfToken(context),
-    },
-  }
 }
