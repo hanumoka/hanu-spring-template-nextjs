@@ -1,30 +1,6 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import axios from 'axios';
-
-const postLogin = () => {
-  axios({
-    url: '/api/test/auth/login',
-    method: 'post',
-    data: {
-      name: 'veneas',
-    },
-  })
-    .then(function a(response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      // csrfToken: await getCsrfToken(context),
-    },
-  };
-}
+import { useMutation } from 'react-query';
+import userApi from '../../api/UserApi'
 
 interface Ilogin {
   username: string;
@@ -44,7 +20,8 @@ export default function SignIn() {
   };
 
   const postLogin = useMutation(
-    (loginParam: Ilogin) => axios.post('http://localhost:8080/api/auth/login', loginParam),
+    // (loginParam: Ilogin) => axios.post('http://localhost:8080/api/auth/login', loginParam),
+    (loginParam: Ilogin) => userApi.login(username, password),
     {
       onMutate: (variable) => {
         console.log('onMutate', variable);
@@ -170,4 +147,12 @@ export default function SignIn() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      // csrfToken: await getCsrfToken(context),
+    },
+  };
 }
