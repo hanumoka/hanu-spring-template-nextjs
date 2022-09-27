@@ -1,44 +1,52 @@
 import React, { useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from "react-query";
 import userApi from '../../api/UserApi'
+import { useAxios } from "../../src/AxiosProvider";
+import TestFetch from "../../src/TestFetch";
 
 interface Ilogin {
   username: string;
   password: string;
 }
 
+interface IFetchAllProjectsResponse {}
+
 export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { isLoading, isError, data, error } = TestFetch();
+
+  const fetchTest = () => {
+    console.log('fetchTest...');
+  };
 
   const submitLogin = (e: React.FormEvent) => {
     e.preventDefault();
     postLogin.mutate({ username, password });
   };
 
-  const postLogin = useMutation(
-    (loginParam: Ilogin) => userApi.login(username, password),
-    {
-      onMutate: (variable) => {
-        console.log('onMutate', variable);
-        // variable : {loginId: 'xxx', password; 'xxx'}
-      },
-      onError: (error, variable, context) => {
-        // error
-        console.error(error);
-      },
-      onSuccess: (data, variables, context) => {
-        // console.log('success', data, variables, context);
-        if(data.data){
-          const { accessToken } = data.data.result;
-          console.log("accessToken: %s", accessToken);
-        }
-      },
-      onSettled: () => {
-        console.log('end');
-      },
-    }
-  ); // useMutate 정의
+  const postLogin = useMutation((loginParam: Ilogin) => userApi.login(username, password), {
+    onMutate: (variable) => {
+      console.log('onMutate', variable);
+      // variable : {loginId: 'xxx', password; 'xxx'}
+    },
+    onError: (error, variable, context) => {
+      // error
+      console.error(error);
+    },
+    onSuccess: (data, variables, context) => {
+      // console.log('success', data, variables, context);
+      if (data.data) {
+        const { accessToken } = data.data.result;
+        console.log('accessToken: %s', accessToken);
+        localStorage.setItem('token', accessToken);
+      }
+    },
+    onSettled: () => {
+      console.log('end');
+    },
+  }); // useMutate 정의
 
   return (
     <>
@@ -144,6 +152,7 @@ export default function SignIn() {
             </button>
           </div>
         </form>
+        <button onClick={fetchTest}>자기정보조회</button>
       </div>
     </>
   );
