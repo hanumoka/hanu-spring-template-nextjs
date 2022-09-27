@@ -12,15 +12,11 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
 
   const submitLogin = (e: React.FormEvent) => {
-    // alert('로그인');
     e.preventDefault();
-    // console.log(username, password);
-    // postLogin();
     postLogin.mutate({ username, password });
   };
 
   const postLogin = useMutation(
-    // (loginParam: Ilogin) => axios.post('http://localhost:8080/api/auth/login', loginParam),
     (loginParam: Ilogin) => userApi.login(username, password),
     {
       onMutate: (variable) => {
@@ -29,19 +25,20 @@ export default function SignIn() {
       },
       onError: (error, variable, context) => {
         // error
+        console.error(error);
       },
       onSuccess: (data, variables, context) => {
-        console.log('success', data, variables, context);
+        // console.log('success', data, variables, context);
+        if(data.data){
+          const { accessToken } = data.data.result;
+          console.log("accessToken: %s", accessToken);
+        }
       },
       onSettled: () => {
         console.log('end');
       },
     }
   ); // useMutate 정의
-
-  // const onSavePerson = () => {
-  //   savePerson.mutate(person); // 데이터 저장
-  // }
 
   return (
     <>
@@ -51,6 +48,9 @@ export default function SignIn() {
 
           <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
+
+        {/*{postLogin.isSuccess ? "success" : "pending"}*/}
+        {/*{postLogin.isError ? "error" : "pending"}*/}
 
         <form onSubmit={submitLogin} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
           <div>
