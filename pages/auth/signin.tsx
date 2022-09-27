@@ -15,7 +15,16 @@ export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const { isLoading, isError, data, error } = TestFetch();
+  // const { isLoading, isError, data, error } = TestFetch();
+  const axios = useAxios();
+
+  const { isLoading, isError, isSuccess, data, error } = useQuery('projects', async () => {
+    // Fetch data from our API using Axios. We'll talk about the typing below
+    return await axios.get<IFetchAllProjectsResponse>('/v1/account');
+
+    // Return the data from the Axios response
+    // return data;
+  });
 
   const fetchTest = () => {
     console.log('fetchTest...');
@@ -153,6 +162,9 @@ export default function SignIn() {
           </div>
         </form>
         <button onClick={fetchTest}>자기정보조회</button>
+        {isSuccess && (<div>
+          {JSON.stringify(data)}
+        </div>)}
       </div>
     </>
   );
