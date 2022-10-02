@@ -1,20 +1,20 @@
 import Link from 'next/link';
-import ThemeToggler from '../src/ThemeToggler';
+import ThemeToggler from '../ThemeToggler';
 import Layout from '../components/Layout';
 
 const IndexPage = () => (
   <div className="pt-6 mt-28">
     <div className="flex justify-center items-center flex-col ">
       <div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-10 transition duration-300">
-        <a href="#">
+        <a href="src/pages/index#">
           <img
             className="rounded-t-lg "
-            src="https://source.unsplash.com/random/1920x1080/?laptop"
+            src="src/pages/index?laptop"
             alt=""
           />
         </a>
         <div className="p-5">
-          <a href="#">
+          <a href="src/pages/index#">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Laptops that you can't afford even in 2022.
             </h5>
@@ -24,7 +24,7 @@ const IndexPage = () => (
             qui debitis voluptas. Rerum dolores aut voluptas galisum aut iure repellendus.
           </p>
           <a
-            href="#"
+            href="src/pages/index#"
             className="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Read more

@@ -1,4 +1,4 @@
-import { useAxios } from "./AxiosProvider";
+import { useAxios } from "../AxiosProvider";
 import { useQuery } from "react-query";
 
 interface IFetchAllProjectsResponse {}

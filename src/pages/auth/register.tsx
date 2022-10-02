@@ -11,7 +11,7 @@ const Register = () => {
             <p className="mt-4 text-gray-500">회원가입을 진행하겠습니다.</p>
           </div>
 
-          <form action="" className="max-w-md mx-auto mt-8 mb-0 space-y-4">
+          <form action="src/pages/auth/register" className="max-w-md mx-auto mt-8 mb-0 space-y-4">
             <div>
               <label htmlFor="email" className="sr-only">
                 Email

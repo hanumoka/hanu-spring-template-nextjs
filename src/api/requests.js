@@ -3,8 +3,7 @@
  */
 
 const requests = {
-  postLogin : '',
-  getLoginUserInfo : ''
+  signin: '/v1/account'
 };
 
 export default requests;

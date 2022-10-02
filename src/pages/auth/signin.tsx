@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, useQuery } from "react-query";
-import userApi from '../../api/UserApi'
-import { useAxios } from "../../src/AxiosProvider";
-import TestFetch from "../../src/TestFetch";
+import AuthApi from '../../api/AuthApi'
+import { useAxios } from "../../AxiosProvider";
 
 interface Ilogin {
   username: string;
@@ -35,7 +34,7 @@ export default function SignIn() {
     postLogin.mutate({ username, password });
   };
 
-  const postLogin = useMutation((loginParam: Ilogin) => userApi.login(username, password), {
+  const postLogin = useMutation((loginParam: Ilogin) => AuthApi.login(username, password), {
     onMutate: (variable) => {
       console.log('onMutate', variable);
       // variable : {loginId: 'xxx', password; 'xxx'}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import Image from 'next/image';
-import ThemeToggler from '../src/ThemeToggler';
+import ThemeToggler from '../ThemeToggler';
 
 type Props = {
   children?: ReactNode;
@@ -32,12 +32,13 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
       {/*<div className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 mt-10 transition duration-300">*/}
       <header className="bg-white dark:bg-gray-900">
         <div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-1 md:flex md:items-center md:gap-12">
-              <a className="block text-teal-300 mt-3" href="/">
+              <a className="block text-teal-300 mt-3" href="/src/pages">
                 <span className="sr-only">Home</span>
                 {theme === 'dark' ? (
                   <Image src="/SEBURE-logo-white.png" alt="SEBURE logo" width="64" height="64" />
@@ -57,7 +58,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
                   <li>
                     <a
                       className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
+                      href="/src/pages"
                     >
                       About
                     </a>
@@ -102,7 +103,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
                   <li>
                     <a
                       className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/"
+                      href="/src/pages"
                     >
                       Blog
                     </a>
