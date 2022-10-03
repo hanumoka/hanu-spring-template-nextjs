@@ -12,6 +12,12 @@ export default {
       },
     });
   },
+  loginInfo() {
+    return Send({
+      url: ApiUrl.v1.getLoginInfo,
+      method: 'get',
+    });
+  },
   // signup(email: string, password: string, passwordRepeat: string) {
   //   return Send({
   //     url: '/user/signup',

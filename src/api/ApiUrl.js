@@ -5,7 +5,7 @@
 const ApiUrl = {
   v1:{
     postLogin: '/api/v1/auth/login',
-    getLoginInfo: '/api/v1/account'
+    getLoginInfo: '/api/v1/account/info'
   }
 };
 

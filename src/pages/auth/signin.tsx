@@ -1,16 +1,32 @@
 import React, { useState } from 'react';
 import UserApi from '../../api/UserApi';
+import { useQuery } from 'react-query';
 
 export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  const { data, isLoading, error } = useQuery(
+    ['loginInfo'],
+    async () => {
+      const { data: result } = await UserApi.loginInfo();
+      // console.log(result);
+      return data;
+    },
+    {
+      retry: false,
+    }
+  );
 
   const submitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('submitLogin...');
-    const res = await UserApi.signin(username, password);
-    console.log(res);
+    const { data: data } = await UserApi.signin(username, password);
+
+    // console.log(JSON.stringify(data.data));
+
+    console.log(data.result.accessToken);
+    localStorage.setItem('accessToken', data.result.accessToken);
   };
 
   return (

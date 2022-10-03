@@ -26,7 +26,11 @@ instance.interceptors.request.use(
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
     config.withCredentials = true;
-    config.headers = { Authorization: `Bearer ${accessToken}` }
+
+    if(accessToken){
+      config.headers = { Authorization: `Bearer ${accessToken}` }
+    }
+
     return config;
 
   },
