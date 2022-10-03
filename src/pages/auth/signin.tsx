@@ -1,60 +1,17 @@
 import React, { useState } from 'react';
-import { useMutation, useQuery } from "react-query";
-import AuthApi from '../../api/AuthApi'
-import { useAxios } from "../../AxiosProvider";
-
-interface Ilogin {
-  username: string;
-  password: string;
-}
-
-interface IFetchAllProjectsResponse {}
+import UserApi from '../../api/UserApi';
 
 export default function SignIn() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  // const { isLoading, isError, data, error } = TestFetch();
-  const axios = useAxios();
 
-  const { isLoading, isError, isSuccess, data, error } = useQuery('projects', async () => {
-    // Fetch data from our API using Axios. We'll talk about the typing below
-    return await axios.get<IFetchAllProjectsResponse>('/v1/account');
-
-    // Return the data from the Axios response
-    // return data;
-  });
-
-  const fetchTest = () => {
-    console.log('fetchTest...');
-  };
-
-  const submitLogin = (e: React.FormEvent) => {
+  const submitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    postLogin.mutate({ username, password });
+    console.log('submitLogin...');
+    const res = await UserApi.signin(username, password);
+    console.log(res);
   };
-
-  const postLogin = useMutation((loginParam: Ilogin) => AuthApi.login(username, password), {
-    onMutate: (variable) => {
-      console.log('onMutate', variable);
-      // variable : {loginId: 'xxx', password; 'xxx'}
-    },
-    onError: (error, variable, context) => {
-      // error
-      console.error(error);
-    },
-    onSuccess: (data, variables, context) => {
-      // console.log('success', data, variables, context);
-      if (data.data) {
-        const { accessToken } = data.data.result;
-        console.log('accessToken: %s', accessToken);
-        localStorage.setItem('token', accessToken);
-      }
-    },
-    onSettled: () => {
-      console.log('end');
-    },
-  }); // useMutate 정의
 
   return (
     <>
@@ -64,9 +21,6 @@ export default function SignIn() {
 
           <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
-
-        {/*{postLogin.isSuccess ? "success" : "pending"}*/}
-        {/*{postLogin.isError ? "error" : "pending"}*/}
 
         <form onSubmit={submitLogin} className="max-w-md mx-auto mt-8 mb-0 space-y-4">
           <div>
@@ -160,10 +114,10 @@ export default function SignIn() {
             </button>
           </div>
         </form>
-        <button onClick={fetchTest}>자기정보조회</button>
-        {isSuccess && (<div>
-          {JSON.stringify(data)}
-        </div>)}
+        {/*<button onClick={fetchTest}>자기정보조회</button>*/}
+        {/*{isSuccess && (<div>*/}
+        {/*  {JSON.stringify(data)}*/}
+        {/*</div>)}*/}
       </div>
     </>
   );

@@ -1,6 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { sampleUserData } from '../../../utils/sample-data';
 
+/**
+ * 사용안함...
+ * @param _req
+ * @param res
+ */
 const handler = (_req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (!Array.isArray(sampleUserData)) {
