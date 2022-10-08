@@ -1,29 +1,20 @@
 import React, { useState } from 'react';
 import UserApi from '../../api/UserApi';
 import { useQuery } from 'react-query';
+// import loginInfoStore from "../../store/store";
+
+
 
 export default function SignIn() {
-  const [username, setUsername] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { data, isLoading, error } = useQuery(
-    ['loginInfo'],
-    async () => {
-      const { data: result } = await UserApi.loginInfo();
-      // console.log(result);
-      return data;
-    },
-    {
-      retry: false,
-    }
-  );
+  // const {userId} = loginInfoStore(state => state);
 
   const submitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('submitLogin...');
-    const { data: data } = await UserApi.signin(username, password);
-
-    // console.log(JSON.stringify(data.data));
+    const { data: data } = await UserApi.signin(userEmail, password);
 
     console.log(data.result.accessToken);
     localStorage.setItem('accessToken', data.result.accessToken);
@@ -34,7 +25,6 @@ export default function SignIn() {
       <div className="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
         <div className="max-w-lg mx-auto text-center">
           <h1 className="text-2xl font-bold sm:text-3xl">로그인</h1>
-
           <p className="mt-4 text-gray-500">로그인을 하셔야 글을 작성하실수 있어요.</p>
         </div>
 
@@ -49,9 +39,9 @@ export default function SignIn() {
                 type="email"
                 className="w-full p-4 pr-12 text-sm border-gray-200 rounded-lg shadow-sm"
                 placeholder="Enter email"
-                value={username}
+                value={userEmail}
                 onChange={(e) => {
-                  setUsername(e.target.value);
+                  setUserEmail(e.target.value);
                 }}
               />
 
@@ -139,7 +129,7 @@ export default function SignIn() {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
   return {
     props: {
       // csrfToken: await getCsrfToken(context),

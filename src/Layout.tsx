@@ -1,9 +1,14 @@
 import React, { ReactNode, useEffect } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Head from 'next/head';
 import Image from 'next/image';
-import ThemeToggler from '../ThemeToggler';
+import ThemeToggler from './ThemeToggler';
+
+import { useQuery } from 'react-query';
+import UserApi from './api/UserApi';
+import useLoginStore from "./store/useLoginStore";
+
 
 type Props = {
   children?: ReactNode;
@@ -12,18 +17,34 @@ type Props = {
 
 const Layout = ({ children, title = 'This is the default title' }: Props) => {
   const { theme, setTheme } = useTheme();
+  const router = useRouter();
 
-  // const { data: session, status } = useSession();
+  const { updateLoginInfo, userId, userEmail, resetLoginInfo } = useLoginStore((state) => state);
 
-  useEffect(() => {
-    console.log('layout:' + theme);
-  }, [theme]);
+  const { data, isLoading, error } = useQuery(
+    ['loginInfo'],
+    async () => {
+      const res = await UserApi.loginInfo();
+      // console.log(JSON.stringify(res));
+      // console.log(JSON.stringify(res.data));
+      console.log('loginInfo...');
+      console.log(JSON.stringify(res.data.result));
+      const { userId, email } = res.data.result;
+      updateLoginInfo(userId, email);
+      return res;
+    },
+    {
+      retry: false,
+    }
+  );
 
-  // useEffect(() =>{
-  //   console.log("layout session...");
-  //   console.log(JSON.stringify(session));
-  //   console.log("status:"+ status);
-  // });
+  const logout = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    alert("로그아웃");
+    resetLoginInfo();
+    router.push('/');
+  }
 
   return (
     <div>
@@ -38,7 +59,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
         <div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-1 md:flex md:items-center md:gap-12">
-              <a className="block text-teal-300 mt-3" href="/src/pages">
+              <a className="block text-teal-300 mt-3" href="/">
                 <span className="sr-only">Home</span>
                 {theme === 'dark' ? (
                   <Image src="/SEBURE-logo-white.png" alt="SEBURE logo" width="64" height="64" />
@@ -58,52 +79,16 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
                   <li>
                     <a
                       className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/src/pages"
+                      href="/about"
                     >
                       About
                     </a>
                   </li>
 
-                  {/*<li>*/}
-                  {/*  <a*/}
-                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
-                  {/*    href="/"*/}
-                  {/*  >*/}
-                  {/*    Careers*/}
-                  {/*  </a>*/}
-                  {/*</li>*/}
-
-                  {/*<li>*/}
-                  {/*  <a*/}
-                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
-                  {/*    href="/"*/}
-                  {/*  >*/}
-                  {/*    History*/}
-                  {/*  </a>*/}
-                  {/*</li>*/}
-
-                  {/*<li>*/}
-                  {/*  <a*/}
-                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
-                  {/*    href="/"*/}
-                  {/*  >*/}
-                  {/*    Services*/}
-                  {/*  </a>*/}
-                  {/*</li>*/}
-
-                  {/*<li>*/}
-                  {/*  <a*/}
-                  {/*    className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"*/}
-                  {/*    href="/"*/}
-                  {/*  >*/}
-                  {/*    Projects*/}
-                  {/*  </a>*/}
-                  {/*</li>*/}
-
                   <li>
                     <a
                       className="text-gray-500 hover:text-gray-500/75 dark:text-white dark:hover:text-white/75 transition"
-                      href="/src/pages"
+                      href="/blog"
                     >
                       Blog
                     </a>
@@ -115,23 +100,39 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
               </nav>
 
               <div className="flex items-center gap-4">
-                <div className="sm:gap-4 sm:flex">
-                  <a
-                    className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
-                    href="/auth/signin"
-                  >
-                    Login
-                  </a>
+                {userEmail ? (
+                  <>
+                    <div className="sm:gap-4 sm:flex">
+                      <a
+                        className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
+                        // href="/auth/signin"
+                        onClick={logout}
+                      >
+                        Logout
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="sm:gap-4 sm:flex">
+                      <a
+                        className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
+                        href="/auth/signin"
+                      >
+                        Login
+                      </a>
 
-                  <div className="hidden sm:flex">
-                    <a
-                      className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
-                      href="/auth/register"
-                    >
-                      Register
-                    </a>
-                  </div>
-                </div>
+                      <div className="hidden sm:flex">
+                        <a
+                          className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
+                          href="/auth/register"
+                        >
+                          Register
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 <div className="block md:hidden">
                   <button className="p-2 text-white transition bg-gray-800 rounded hover:text-white/75">
@@ -158,11 +159,6 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
       </header>
 
       {children}
-      {/* 푸터 필요 없음 */}
-      {/*<footer>*/}
-      {/*    <hr/>*/}
-      {/*    푸터*/}
-      {/*</footer>*/}
     </div>
   );
 };

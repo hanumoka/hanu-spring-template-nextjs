@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ThemeToggler from '../ThemeToggler';
-import Layout from '../components/Layout';
+import Layout from '../Layout';
 
 const IndexPage = () => (
   <div className="pt-6 mt-28">
