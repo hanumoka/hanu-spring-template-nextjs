@@ -1,6 +1,6 @@
 import create from 'zustand';
 
-type Nullable<T> = T | null;
+// type Nullable<T> = T | null;
 
 interface LoginInterface {
   userId: Nullable<number>;

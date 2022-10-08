@@ -21,14 +21,19 @@ const instance = axios.create({
 instance.interceptors.request.use(
   function (config) {
 
-    const accessToken = localStorage.getItem("accessToken");
+    const authStore = localStorage.getItem("auth-store");
+    let authStoreState = null;
+    if(authStore){
+      authStoreState = JSON.parse(authStore);
+    }
+    console.log(JSON.stringify(authStore));
 
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
     config.withCredentials = true;
 
-    if(accessToken){
-      config.headers = { Authorization: `Bearer ${accessToken}` }
+    if(authStoreState && authStoreState.state && authStoreState.state.accessToken){
+      config.headers = { Authorization: `Bearer ${authStoreState.state.accessToken}` }
     }
 
     return config;

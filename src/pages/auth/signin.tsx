@@ -1,23 +1,40 @@
-import React, { useState } from 'react';
-import UserApi from '../../api/UserApi';
-import { useQuery } from 'react-query';
+import React, { useState } from "react";
+import UserApi from "../../api/UserApi";
+import { useQuery } from "react-query";
+import { useMutation } from "react-query";
+import authStore from "../../store/useAuthStore";
+import { signInAction } from "../../hooks/authRq";
 // import loginInfoStore from "../../store/store";
 
-
+// interface TodoType {
+//   id: number;
+//   todo: string;
+// }
+//
+// const addTodo = async (newTodo: TodoType): Promise<TodoType> => {
+//   const { data } = await UserApi.signin('test', 'test');
+//   return data;
+// };
 
 export default function SignIn() {
-  const [userEmail, setUserEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userEmail, setUserEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // const {userId} = loginInfoStore(state => state);
+  // const {loginAction} = authStore(state => state);
+
+  // api 요청하는 함수(addTodo) 를 작성했을 경우
+  const { mutate, isLoading, isError, error, isSuccess } = signInAction();
 
   const submitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('submitLogin...');
-    const { data: data } = await UserApi.signin(userEmail, password);
-
-    console.log(data.result.accessToken);
-    localStorage.setItem('accessToken', data.result.accessToken);
+    console.log("submitLogin...");
+    mutate({ userEmail, password }, {
+      onSuccess: async (data: any, context: any) => {
+        console.log(data);
+        //TODO. 여기서 zustnad store에 데이터를 저장하자.
+      }
+    });
+    // await loginAction(userEmail, password);
   };
 
   return (
@@ -133,6 +150,6 @@ export async function getServerSideProps(context: any) {
   return {
     props: {
       // csrfToken: await getCsrfToken(context),
-    },
+    }
   };
 }

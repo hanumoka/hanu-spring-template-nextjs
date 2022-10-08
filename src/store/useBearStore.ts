@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import create from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -11,7 +14,9 @@ const useBearStore = create<BearState>()(
     persist((set) => ({
       bears: 10,
       increase: (by) => set((state) => ({ bears: state.bears + by }))
-    }))
+    }),{
+      name: 'bear-store'
+    })
   )
 );
 

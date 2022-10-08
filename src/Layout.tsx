@@ -19,32 +19,34 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
   const { theme, setTheme } = useTheme();
   const router = useRouter();
 
-  const { updateLoginInfo, userId, userEmail, resetLoginInfo } = useLoginStore((state) => state);
+  // const { isLoading, isError, data, error} = useQuery('loginInfo', );
 
-  const { data, isLoading, error } = useQuery(
-    ['loginInfo'],
-    async () => {
-      const res = await UserApi.loginInfo();
-      // console.log(JSON.stringify(res));
-      // console.log(JSON.stringify(res.data));
-      console.log('loginInfo...');
-      console.log(JSON.stringify(res.data.result));
-      const { userId, email } = res.data.result;
-      updateLoginInfo(userId, email);
-      return res;
-    },
-    {
-      retry: false,
-    }
-  );
+  // const { updateLoginInfo, userId, userEmail, resetLoginInfo } = useLoginStore((state) => state);
+  //
+  // const { data, isLoading, error } = useQuery(
+  //   ['loginInfo'],
+  //   async () => {
+  //     const res = await UserApi.loginInfo();
+  //     // console.log(JSON.stringify(res));
+  //     // console.log(JSON.stringify(res.data));
+  //     console.log('loginInfo...');
+  //     console.log(JSON.stringify(res.data.result));
+  //     const { userId, email } = res.data.result;
+  //     updateLoginInfo(userId, email);
+  //     return res;
+  //   },
+  //   {
+  //     retry: false,
+  //   }
+  // );
 
-  const logout = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    alert("로그아웃");
-    resetLoginInfo();
-    router.push('/');
-  }
+  // const logout = (e : React.MouseEvent<HTMLElement>) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   alert("로그아웃");
+  //   resetLoginInfo();
+  //   router.push('/');
+  // }
 
   return (
     <div>
@@ -100,39 +102,23 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => {
               </nav>
 
               <div className="flex items-center gap-4">
-                {userEmail ? (
-                  <>
-                    <div className="sm:gap-4 sm:flex">
-                      <a
-                        className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
-                        // href="/auth/signin"
-                        onClick={logout}
-                      >
-                        Logout
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="sm:gap-4 sm:flex">
-                      <a
-                        className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
-                        href="/auth/signin"
-                      >
-                        Login
-                      </a>
+                <div className="sm:gap-4 sm:flex">
+                  <a
+                    className="px-5 py-2.5 text-sm font-medium text-white bg-teal-600 rounded-md shadow"
+                    href="/auth/signin"
+                  >
+                    Login
+                  </a>
 
-                      <div className="hidden sm:flex">
-                        <a
-                          className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
-                          href="/auth/register"
-                        >
-                          Register
-                        </a>
-                      </div>
-                    </div>
-                  </>
-                )}
+                  <div className="hidden sm:flex">
+                    <a
+                      className="px-5 py-2.5 text-sm font-medium text-white bg-gray-800 rounded-md"
+                      href="/auth/register"
+                    >
+                      Register
+                    </a>
+                  </div>
+                </div>
 
                 <div className="block md:hidden">
                   <button className="p-2 text-white transition bg-gray-800 rounded hover:text-white/75">
