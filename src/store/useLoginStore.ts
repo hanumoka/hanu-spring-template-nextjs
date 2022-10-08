@@ -1,8 +1,10 @@
 import create from 'zustand';
 
+type Nullable<T> = T | null;
+
 interface LoginInterface {
-  userId: number;
-  userEmail: string;
+  userId: Nullable<number>;
+  userEmail: Nullable<string>;
   updateLoginInfo: (userId: number, userEmail: string) => void;
   resetLoginInfo: () => void;
 }
